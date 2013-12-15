@@ -113,4 +113,26 @@ describe('scales', function() {
     });
     
   });
+  
+  describe('y axis label',function() {
+    before(function() {
+    scope.$apply(function() {
+      scope.data = [{x: 0, value: 4}, {x: 1, value: 8}];
+      scope.options = {
+        axes: {
+          y: {type: 'linear',
+              axisLabel:"axisLabel"}
+        },
+        series: [
+          {y: 'value', color: '#4682b4', label: 'toto'},
+          {y: 'value', axis: 'y2', color: '#4682b4', type: 'column'}
+        ]};
+      });
+    });
+  
+    it('should draw an axis label if configured to do so', function() {
+        var yAxisLabel = elm.find('svg').children()[0].childNodes[2];
+        expect(yAxisLabel.innerHTML).toEqual("axisLabel");
+    });
+  });
 });
